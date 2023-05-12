@@ -6,11 +6,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+  <title>HRMS</title>
 
   <meta name="description" content="" />
 
-  <link rel="icon" type="../image/x-icon" href="assets/img/favicon/favicon.ico" />
+  <link rel="icon" type="../image/x-icon" href="assets/img/hrms.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -116,23 +116,23 @@
             </ul>
           </li>
           <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <a href="" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-              <div data-i18n="Authentications">Authentications</div>
+              <div>Authentications</div>
             </a>
             <ul class="menu-sub">
               <li class="menu-item">
-                <a href="auth-login-basic.html" class="menu-link" target="_blank">
+                <a href="views/signin.php" class="menu-link">
                   <div data-i18n="Basic">Login</div>
                 </a>
               </li>
               <li class="menu-item">
-                <a href="auth-register-basic.html" class="menu-link" target="_blank">
+                <a href="views/signup.php" class="menu-link">
                   <div data-i18n="Basic">Register</div>
                 </a>
               </li>
               <li class="menu-item">
-                <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
+                <a href="auth-forgot-password-basic.html" class="menu-link">
                   <div data-i18n="Basic">Forgot Password</div>
                 </a>
               </li>
