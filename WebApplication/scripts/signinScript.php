@@ -41,7 +41,12 @@ $hashPassFromDB = $row['password'];
 
 if (password_verify($password, $hashPassFromDB)) {
     $_SESSION['user_id'] = $row['id'];
-    echo getJson("200");
+    $_SESSION['role'] = $row['role'];
+    $returnObj = array(
+        "status" => 200,
+        "role" => $row['role']
+    );
+    echo getJson($returnObj);
     die();
 } else {
     $error = 'Incorrect email or password.';

@@ -1,3 +1,22 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+if (isset($_SESSION['user_id'])) {
+    if ($_SESSION['role'] == "admin")
+        header('location:../views/adminMain.php');
+    else if ($_SESSION['role'] == "hr")
+        header('location:../views/hrMain.php');
+    else
+        header('location:../viewsEmployeeMain.php');
+    die();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
 

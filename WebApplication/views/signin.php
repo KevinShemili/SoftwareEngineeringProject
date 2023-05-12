@@ -1,3 +1,21 @@
+<?php
+session_start();
+
+require "../scripts/getUser.php";
+
+// prevent user from pressing back button after having logged in. Which would send them again to login page.
+if (isset($_SESSION['user_id'])) {
+    if ($_SESSION['role'] == "admin")
+        header('location:../views/adminMain.php');
+    else if ($_SESSION['role'] == "hr")
+        header('location:../views/hrMain.php');
+    else
+        header('location:../viewsEmployeeMain.php');
+    die();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
 
@@ -27,9 +45,19 @@
     <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
     <script src="../assets/vendor/js/helpers.js"></script>
     <script src="../assets/js/config.js"></script>
+    <script src="../js/signin.js" defer></script>
+
 </head>
 
 <body>
+
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
     <!-- Content -->
 
     <div class="container-xxl">
@@ -44,25 +72,26 @@
                                 <span class="app-brand-text demo text-body fw-bolder text-uppercase">HRMS</span>
                             </a>
                         </div>
-                        <form id="formAuthentication" class="mb-3">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email or Username</label>
-                                <input type="text" class="form-control" id="email" name="email-username" placeholder="Enter your email or username" autofocus />
+                        <div>
+                            <h5 id="invisible-error" style="color: red;"></h5>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="email" name="email-username" placeholder="Enter your email or username" autofocus />
+                        </div>
+                        <div class="mb-3 form-password-toggle">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" for="password">Password</label>
                             </div>
-                            <div class="mb-3 form-password-toggle">
-                                <div class="d-flex justify-content-between">
-                                    <label class="form-label" for="password">Password</label>
-                                </div>
-                                <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
-                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                                </div>
+                            <div class="input-group input-group-merge">
+                                <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
+                        </div>
 
-                            <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
-                            </div>
-                        </form>
+                        <div class="mb-3">
+                            <button id="button" class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                        </div>
 
                         <p class="text-center">
                             <a href="signup.php">
