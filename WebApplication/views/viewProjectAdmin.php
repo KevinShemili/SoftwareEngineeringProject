@@ -51,24 +51,26 @@ if (isset($_SESSION["user_id"])) {
     <script src="../assets/vendor/js/helpers.js"></script>
 
     <script src="../assets/js/config.js"></script>
-    <script src="../js/newProject.js" defer></script>
-
 </head>
 
 <body>
 
     <!-- Modal1 Start -->
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: black;">Success.</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: black;">Profile not complete.</h5>
                     <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Project Published.
+                    The analysis could not be performed since you are missing Twitter Keys. Proceed to keys section?
+                </div>
+                <div class="modal-footer">
+                    <button id="modalYes" type="button" class="btn btn-secondary" data-dismiss="modal">Yes</button>
+                    <button id="modalCancel" type="button" class="btn btn-primary">Cancel</button>
                 </div>
             </div>
         </div>
@@ -106,7 +108,7 @@ if (isset($_SESSION["user_id"])) {
                     <li class="menu-item active">
                         <a href="#" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-collection"></i>
-                            <div data-i18n="Basic">Add New Project</div>
+                            <div data-i18n="Basic">View Project</div>
                         </a>
                     </li>
 
@@ -218,6 +220,48 @@ if (isset($_SESSION["user_id"])) {
                                             <button type="submit" id="publish" class="btn btn-primary me-2">Publish</button>
                                             <button type="reset" id="cancel" class="btn btn-outline-secondary">Cancel</button>
                                         </div>
+                                    </div>
+                                    <!-- /Account -->
+                                </div>
+                                <div class="card">
+
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <h5 class="card-header">Applications</h5>
+                                    </div>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Date Applied</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class=" table-border-bottom-0">
+                                                <tr>
+                                                    <td>Albert Cook</td>
+                                                    <td>
+                                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
+                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
+                                                            </li>
+                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
+                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
+                                                            </li>
+                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Christina Parker">
+                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                    <td><span class="badge bg-label-primary me-1">Active</span></td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm">Accept</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Decline</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
