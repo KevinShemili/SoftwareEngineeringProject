@@ -61,15 +61,15 @@ if (isset($_SESSION["user_id"])) {
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="#" class="app-brand-link">
+                    <a href="adminMain.php" class="app-brand-link">
                         <h2 class="">HRMS</h2>
                     </a>
                 </div>
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item active">
-                        <a href="#" class="menu-link">
+                    <li class="menu-item">
+                        <a href="adminMain.php" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
@@ -79,6 +79,13 @@ if (isset($_SESSION["user_id"])) {
                         <a href="adminProjects.php" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-collection"></i>
                             <div data-i18n="Basic">Projects</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item active">
+                        <a href="#" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-collection"></i>
+                            <div data-i18n="Basic">Add New Project</div>
                         </a>
                     </li>
 
@@ -150,7 +157,94 @@ if (isset($_SESSION["user_id"])) {
 
                 <!-- / Navbar -->
 
+                <div class="content-wrapper">
+                    <!-- Content -->
 
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card mb-4">
+                                    <h5 class="card-header">Add New Project</h5>
+                                    <hr class="my-0" />
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label for="firstName" class="form-label">Project Name</label>
+                                                <input class="form-control" type="text" id="firstName" name="firstName" placeholder="Angular 13 Pet Store Client" autofocus />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="clientname" class="form-label">Client Name</label>
+                                                <input class="form-control" type="text" id="email" name="clientname" placeholder="John" />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="email" class="form-label">Client Name</label>
+                                                <input class="form-control" type="text" id="email" name="email" placeholder="john.doe@example.com" />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="country" class="form-label">Country</label>
+                                                <input class="form-control" type="text" id="email" name="country" placeholder="United States" />
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlTextarea1">Description</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        </div>
+                                        <div class="mt-2">
+                                            <button type="submit" class="btn btn-primary me-2">Publish</button>
+                                            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                                        </div>
+                                    </div>
+                                    <!-- /Account -->
+                                </div>
+                                <div class="card">
+
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <h5 class="card-header">Applications</h5>
+                                    </div>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Date Applied</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class=" table-border-bottom-0">
+                                                <tr>
+                                                    <td>Albert Cook</td>
+                                                    <td>
+                                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
+                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
+                                                            </li>
+                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
+                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
+                                                            </li>
+                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Christina Parker">
+                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                    <td><span class="badge bg-label-primary me-1">Active</span></td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm">Accept</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Decline</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / Content -->
+
+                    <div class="content-backdrop fade"></div>
+                </div>
 
                 <!-- Footer -->
                 <footer class="content-footer footer bg-footer-theme">
