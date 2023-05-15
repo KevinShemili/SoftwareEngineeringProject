@@ -95,7 +95,7 @@ if ($mysqliResult == false) {
 }
 
 echo getJson("200");
-
+/*
 $mail = new PHPMailer(true);
 $mail->isSMTP();
 $mail->Host = "smtp.gmail.com";
@@ -119,3 +119,4 @@ try {
 } catch (Exception $e) {
     $errors[] = $e;
 }
+*/

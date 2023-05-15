@@ -187,7 +187,7 @@ if (isset($_SESSION["user_id"])) {
                                 <div class="card mb-4">
                                     <h5 class="card-header">Add New Project</h5>
                                     <div>
-                                        <h6 id="invisible-error1" class="card-header" style="color: red; display: none;"></h6>
+                                        <h6 id="invisible-error1" class="card-header" style="color: red;"></h6>
                                     </div>
                                     <hr class="my-0" />
                                     <div class="card-body">

@@ -32,7 +32,7 @@ submitButton.addEventListener("click", (ev) => {
             window.location.href = "../views/adminMain.php";
           else if (response.role == "hr")
             window.location.href = "../views/hrMain.php";
-          else window.location.href = "../viewsEmployeeMain.php";
+          else window.location.href = "../views/EmployeeMain.php";
         } else {
           error.innerText = response;
         }

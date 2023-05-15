@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id'])) {
     else if ($_SESSION['role'] == "hr")
         header('location:../views/hrMain.php');
     else
-        header('location:../viewsEmployeeMain.php');
+        header('location:../views/EmployeeMain.php');
     die();
 }
 

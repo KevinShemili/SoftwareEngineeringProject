@@ -2,13 +2,14 @@
 session_start();
 require "../database/config.php";
 require "../scripts/getUser.php";
+require "../scripts/getUser_Project.php";
 
 if (isset($_SESSION['user_id'])) {
-    if ($_SESSION['role'] == "admin") {
+    if ($_SESSION['role'] == "employee") {
     } else if ($_SESSION['role'] == "hr")
         header('location:hrMain.php');
-    else if ($_SESSION['role'] == "employee")
-        header('location:EmployeeMain.php');
+    else if ($_SESSION['role'] == "admin")
+        header('location:adminMain.php');
 } else
     header('location:../index.php');
 
@@ -17,6 +18,8 @@ if (isset($_SESSION["user_id"])) {
     $user = getUserById_SelectAll($userId, $connection);
 }
 
+$projectId = $_GET['projectId'];
+$user_project = get_user_project($_SESSION["user_id"], $projectId);
 
 ?>
 
@@ -51,47 +54,24 @@ if (isset($_SESSION["user_id"])) {
     <script src="../assets/vendor/js/helpers.js"></script>
 
     <script src="../assets/js/config.js"></script>
-    <script src="../js/viewProjectAdmin.js" defer></script>
+    <script src="../js/viewProjectEmployee.js" defer></script>
 
 </head>
 
 <body>
-
-
-    <!-- Modal1 Start -->
-    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: black;">Application Approval.</h5>
-                    <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to approve this candidate?
-                </div>
-                <div class="modal-footer">
-                    <button id="modalYes" type="button" class="btn btn-secondary" data-dismiss="modal">Yes</button>
-                    <button id="modalCancel" type="button" class="btn btn-primary">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal1 End -->
 
     <!-- Modal2 Start -->
     <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: black;">Edit Project Details</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: black;">Project Application.</h5>
                     <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Saved.
+                    Applied Successfully.
                 </div>
             </div>
         </div>
@@ -105,7 +85,7 @@ if (isset($_SESSION["user_id"])) {
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="adminMain.php" class="app-brand-link">
+                    <a href="EmployeeMain.php" class="app-brand-link">
                         <h2 class="">HRMS</h2>
                     </a>
                 </div>
@@ -113,16 +93,16 @@ if (isset($_SESSION["user_id"])) {
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
                     <li class="menu-item">
-                        <a href="adminMain.php" class="menu-link">
+                        <a href="EmployeeMain.php" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
                     </li>
 
                     <li class="menu-item">
-                        <a href="adminProjects.php" class="menu-link">
+                        <a href="#" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-collection"></i>
-                            <div data-i18n="Basic">Projects</div>
+                            <div data-i18n="Basic">My Projects</div>
                         </a>
                     </li>
 
@@ -215,9 +195,17 @@ if (isset($_SESSION["user_id"])) {
                             <div class="col-md-12">
                                 <div class="card mb-4">
                                     <h5 class="card-header">Project Details</h5>
-                                    <div>
-                                        <h6 id="invisible-error1" class="card-header" style="color: red;"></h6>
-                                    </div>
+                                    <?php
+                                    if ($user_project['status'] == null) {
+                                        echo '<div>
+                                                <h6 id="invisible-error1" class="card-header" style="color: red;"></h6>
+                                            </div>';
+                                    } else {
+                                        echo '<div>
+                                                <h6 class="card-header">Application Date: ' . $user_project['appliedOn'] . '</h6>
+                                            </div>';
+                                    }
+                                    ?>
                                     <hr class="my-0" />
                                     <div class="card-body">
                                         <div class="row">
@@ -243,53 +231,18 @@ if (isset($_SESSION["user_id"])) {
                                             <label for="description">Description</label>
                                             <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                                         </div>
-                                        <div class="mt-2">
-                                            <button type="submit" id="publish" class="btn btn-primary me-2">Save</button>
+                                        <?php
+                                        if ($user_project['status'] == null) {
+                                            echo '<div class="mt-2">
+                                            <button type="submit" id="publish" class="btn btn-primary me-2">Apply</button>
                                             <button type="reset" id="cancel" class="btn btn-outline-secondary">Cancel</button>
-                                        </div>
+                                            </div>';
+                                        } else {
+                                            echo '<button type="submit" class="btn btn-info me-2">Already Applied</button>';
+                                        }
+                                        ?>
                                     </div>
                                     <!-- /Account -->
-                                </div>
-                                <div class="card">
-
-                                    <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <h5 class="card-header">Applications</h5>
-                                    </div>
-                                    <div class="table-responsive text-nowrap">
-                                        <table class="table">
-                                            <thead class="table-dark">
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Date Applied</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class=" table-border-bottom-0">
-                                                <tr>
-                                                    <td>Albert Cook</td>
-                                                    <td>
-                                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
-                                                            </li>
-                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
-                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
-                                                            </li>
-                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Christina Parker">
-                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
-                                                            </li>
-                                                        </ul>
-                                                    </td>
-                                                    <td><span class="badge bg-label-primary me-1">Active</span></td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success btn-sm">Accept</button>
-                                                        <button type="button" class="btn btn-danger btn-sm">Decline</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
                         </div>
