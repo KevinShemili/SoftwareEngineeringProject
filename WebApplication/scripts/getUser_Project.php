@@ -14,7 +14,7 @@ function getJson($message)
 function get_user_project($user_id, $project_id)
 {
     global $connection;
-    $sql_query = "SELECT `status`, `appliedOn` FROM `user_projects` WHERE `user_id`='$user_id' AND `project_id`='$project_id'";
+    $sql_query = "SELECT `status`, `appliedOn` FROM `user_projects` WHERE `user_id`='$user_id' AND `project_id`='$project_id' ";
     $query_result = mysqli_query($connection, $sql_query);
 
     if ($query_result == false) {

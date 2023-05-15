@@ -265,28 +265,7 @@ if (isset($_SESSION["user_id"])) {
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tbody class=" table-border-bottom-0">
-                                                <tr>
-                                                    <td>Albert Cook</td>
-                                                    <td>
-                                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
-                                                            </li>
-                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
-                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
-                                                            </li>
-                                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Christina Parker">
-                                                                <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
-                                                            </li>
-                                                        </ul>
-                                                    </td>
-                                                    <td><span class="badge bg-label-primary me-1">Active</span></td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success btn-sm">Accept</button>
-                                                        <button type="button" class="btn btn-danger btn-sm">Decline</button>
-                                                    </td>
-                                                </tr>
+                                            <tbody id="table-body" class=" table-border-bottom-0">
                                             </tbody>
                                         </table>
                                     </div>

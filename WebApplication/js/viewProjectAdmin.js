@@ -9,15 +9,72 @@ let cancelButton = document.getElementById("cancel");
 
 let error = document.getElementById("invisible-error1");
 
-let applicantModal = document.getElementById("modal1");
-let modalYesButton = document.getElementById("modalYes");
-let modalCancelButton = document.getElementById("modalCancel");
-
 let editModal = document.getElementById("modal2");
 
 let content = document.getElementById("content");
+let tableBody = document.getElementById("table-body");
 
 const urlParams = new URLSearchParams(window.location.search);
+
+let getApplicants = (callback) => {
+  const id = urlParams.get("projectId");
+  var xhr = new XMLHttpRequest();
+
+  let form = new FormData();
+
+  form.append("projectId", id);
+
+  xhr.open("POST", "../scripts/getApplicants.php", true);
+
+  xhr.send(form);
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      let response = JSON.parse(xhr.responseText);
+      if (response.status == 200) {
+        callback(response.data);
+      } else {
+        error.innerText = response.error;
+      }
+    }
+  };
+};
+
+let prepareContent = (applicants) => {
+  const id = urlParams.get("projectId");
+
+  tableBody.innerHTML = "";
+  if (applicants) {
+    for (let applicant of applicants) {
+      let row = `
+      <tr>
+        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${applicant.username}</strong></td>
+        <td>${applicant.appliedOn}</td>`;
+
+      if (applicant.status == 0) {
+        row += `<td><span class="badge bg-label-warning me-1">Pending</span></td>
+        <td>
+        <a href="../scripts/acceptApplicant.php?projectId=${id}&user_id=${applicant.id}"><button type="button" class="btn btn-success btn-sm">Accept</button></a>
+        <a href="../scripts/declineApplicant.php?projectId=${id}&user_id=${applicant.id}"><button type="button" class="btn btn-danger btn-sm">Decline</button></a>
+      </td>`;
+      } else if (applicant.status == -1) {
+        row += `<td><span class="badge bg-label-danger me-1">Declined</span></td>
+        <td>
+        <a href="../scripts/acceptApplicant.php?projectId=${id}&user_id=${applicant.id}"><button type="button" class="btn btn-success btn-sm">Accept</button></a>
+      </td>`;
+      } else {
+        row += `<td><span class="badge bg-label-success me-1">Accepted</span></td>
+        <td>
+        <a href="../scripts/declineApplicant.php?projectId=${id}&user_id=${applicant.id}"><button type="button" class="btn btn-danger btn-sm">Decline</button></a>
+      </td>`;
+      }
+
+      tableBody.innerHTML += row;
+    }
+  } else {
+    content.innerHTML += `<h3 style="color: crimson;">No analysis avaliable</h3>`;
+  }
+};
 
 window.onload = () => {
   const id = urlParams.get("projectId");
@@ -29,6 +86,10 @@ window.onload = () => {
     if (http.readyState == 4 && http.status == 200) {
       // Hide the spinner
       document.getElementById("spinner").style.display = "none";
+
+      getApplicants((applicants) => {
+        prepareContent(applicants);
+      });
 
       let response = JSON.parse(http.responseText);
       if (response == "empty") {
@@ -119,101 +180,6 @@ cancelButton.addEventListener("click", () => {
 
 $(document).ready(function () {
   $("#modalCancel").click(function () {
-    $("#exampleModalCenter2").modal("hide");
+    $(editModal).modal("hide");
   });
-});
-
-$(document).ready(function () {
-  $("#closeModal").click(function () {
-    $("#exampleModalCenter2").modal("hide");
-  });
-});
-
-removePhoto.addEventListener("click", () => {
-  $(modal2).modal("show");
-});
-
-modalDeleteButton.addEventListener("click", () => {
-  const id = urlParams.get("id");
-
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", "../scripts/deletePhoto.php");
-  let form = new FormData();
-
-  form.append("id", id);
-
-  xhr.send(form);
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-      let response = JSON.parse(xhr.responseText);
-      if (response == 200) {
-        $("#exampleModalCenter2").modal("hide");
-        $(modal).modal("show");
-        document.getElementById("exampleModalLongTitle").innerText = "";
-        modalBody.innerHTML = "Deleting...";
-        setTimeout(() => {
-          modalBody.innerHTML = "Deleted.";
-          $(modal).modal("hide");
-          location.reload();
-        }, 3000);
-      } else {
-        error2.innerText = response;
-      }
-    }
-  };
-});
-
-saveBtn3.addEventListener("click", () => {
-  if (!checkBox2.checked) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "../scripts/updateKeys.php", true);
-
-    var form = new FormData();
-    const id = urlParams.get("id");
-    form.append("id", id);
-
-    if (consumerKey.value == "" || consumerKey.value == null) {
-      error3.innerText = "Fill in all fields.";
-      return;
-    }
-
-    if (consumerSecret.value == "" || consumerSecret.value == null) {
-      error3.innerText = "Fill in all fields.";
-      return;
-    }
-
-    if (accessToken.value == "" || accessToken.value == null) {
-      error3.innerText = "Fill in all fields.";
-      return;
-    }
-
-    if (accessTokenSecret.value == "" || accessTokenSecret.value == null) {
-      error3.innerText = "Fill in all fields.";
-      return;
-    }
-
-    form.append("consumerKey", consumerKey.value);
-    form.append("consumerSecret", consumerSecret.value);
-    form.append("accessToken", accessToken.value);
-    form.append("accessTokenSecret", accessTokenSecret.value);
-
-    xhr.send(form);
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        let response = JSON.parse(xhr.responseText);
-        if (response == 200) {
-          $(modal).modal("show");
-          setTimeout(() => {
-            modalBody.innerHTML = "Saved.";
-            $(modal).modal("hide");
-            location.reload();
-          }, 3000);
-        } else {
-          error3.innerText = response;
-        }
-      }
-    };
-  }
 });

@@ -196,7 +196,7 @@ $user_project = get_user_project($_SESSION["user_id"], $projectId);
                                 <div class="card mb-4">
                                     <h5 class="card-header">Project Details</h5>
                                     <?php
-                                    if ($user_project['status'] == null) {
+                                    if ($user_project == null) {
                                         echo '<div>
                                                 <h6 id="invisible-error1" class="card-header" style="color: red;"></h6>
                                             </div>';
@@ -232,12 +232,16 @@ $user_project = get_user_project($_SESSION["user_id"], $projectId);
                                             <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                                         </div>
                                         <?php
-                                        if ($user_project['status'] == null) {
+                                        if ($user_project == null) {
                                             echo '<div class="mt-2">
                                             <button type="submit" id="publish" class="btn btn-primary me-2">Apply</button>
                                             <button type="reset" id="cancel" class="btn btn-outline-secondary">Cancel</button>
                                             </div>';
-                                        } else {
+                                        } else if ($user_project['status'] == 1) {
+                                            echo '<button type="submit" class="btn btn-info me-2">Accepted</button>';
+                                        } else if ($user_project['status'] == -1) {
+                                            echo '<button type="submit" class="btn btn-info me-2">Declined</button>';
+                                        } else if ($user_project['status'] == 0) {
                                             echo '<button type="submit" class="btn btn-info me-2">Already Applied</button>';
                                         }
                                         ?>
