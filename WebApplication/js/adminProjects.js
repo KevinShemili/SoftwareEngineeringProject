@@ -32,36 +32,29 @@ let prepareContent = (projects) => {
       let row = `
       <tr>
         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${project.name}</strong></td>
-        <td>${project.client}</td>
-        <td>
-          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
-              <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
-            </li>
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Sophia Wilkerson">
-              <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
-            </li>
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Christina Parker">
-              <img src="../assets/img/profiles/default.png" alt="Avatar" class="rounded-circle" />
-            </li>
-          </ul>
-        </td>`;
+        <td>${project.client}</td>`;
 
       if (project.status == "active") {
-        row += `<td><span class="badge bg-label-primary me-1">Active</span></td>`;
+        row += `<td><span class="badge bg-label-primary me-1">Active</span></td>
+        <td>
+        <div class="dropdown">
+            <a class="btn btn-sm btn-primary" href="../views/viewProjectAdmin.php?projectId=${project.id}" self-id="${project.id}">Details</a>
+                <a class="btn btn-sm btn-warning" href="../scripts/archiveProject.php?projectId=${project.id}" self-id="${project.id}">Archive</a>
+        </div>
+      </td>`;
       } else if (project.status == "completed") {
-        row += `<td><span class="badge bg-label-success me-1">Completed</span></td>`;
+        row += `<td><span class="badge bg-label-success me-1">Completed</span></td>
+        <td>
+        <div class="dropdown">
+            <a class="btn btn-sm btn-primary" href="../views/viewProjectAdmin.php?projectId=${project.id}" self-id="${project.id}">Details</a>
+        </div>
+      </td>`;
       } else {
         row += `<td><span class="badge bg-label-warning me-1">Canceled</span></td>`;
       }
 
       row += `
-      <td>
-        <div class="dropdown">
-            <a class="btn btn-sm btn-primary" href="../views/viewProjectAdmin.php?projectId=${project.id}" self-id="${project.id}">Details</a>
-                <a class="btn btn-sm btn-warning" href="../scripts/deleteProject.php?projectId=${project.id}" self-id="${project.id}">Delete</a>
-        </div>
-      </td>
+      
     </tr>`;
 
       tableBody.innerHTML += row;

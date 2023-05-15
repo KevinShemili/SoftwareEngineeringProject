@@ -171,7 +171,6 @@ if (isset($_SESSION["user_id"])) {
                                         <tr>
                                             <th>Project</th>
                                             <th>Client</th>
-                                            <th>Employees</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
